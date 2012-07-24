@@ -316,6 +316,9 @@ class ResponseStats(object):
 
 
 def split_series(points, interval):
+    if not points:
+        return points
+
     offset = points[0][0]
     maxval = int((points[-1][0] - offset) // interval)
     vals = defaultdict(list)
