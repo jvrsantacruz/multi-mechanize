@@ -15,13 +15,13 @@ import threading
 import time
 
 from multimechanize.script_loader import ScriptLoader
-import os.path
+
 
 def init(projects_dir, project_name):
     """
     Sanity check that all test scripts can be loaded.
     """
-    scripts_path = '%s/%s/test_scripts' % (projects_dir, project_name)
+    scripts_path = os.path.join(projects_dir, project_name, 'test_scripts')
     if not os.path.exists(scripts_path):
         sys.stderr.write('\nERROR: can not find project: %s\n\n' % project_name)
         sys.exit(1)

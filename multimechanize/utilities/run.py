@@ -77,7 +77,8 @@ def run_test(project_name, cmd_opts, remote_starter=None):
     run_time, rampup, results_ts_interval, console_logging, progress_bar, results_database, post_run_script, xml_report, user_group_configs = configure(project_name, cmd_opts)
 
     run_localtime = time.localtime()
-    output_dir = '%s/%s/results/results_%s' % (cmd_opts.projects_dir, project_name, time.strftime('%Y.%m.%d_%H.%M.%S/', run_localtime))
+    output_dir = os.path.join(cmd_opts.projects_dir, project_name, 'results',
+               'results_' + time.strftime('%Y.%m.%d_%H.%M.%S/', run_localtime))
 
     # this queue is shared between all processes/threads
     queue = multiprocessing.Queue()
@@ -168,8 +169,10 @@ def run_test(project_name, cmd_opts, remote_starter=None):
 
 
 def rerun_results(project_name, cmd_opts, results_dir):
-    output_dir = '%s/%s/results/%s/' % (cmd_opts.projects_dir, project_name, results_dir)
+    output_dir = os.path.join(cmd_opts.projects_dir, project_name, results_dir)
+
     saved_config = '%s/config.cfg' % output_dir
+    saved_config = os.path.join(output_dir, 'config.cfg')
     run_time, rampup, results_ts_interval, console_logging, progress_bar, results_database, post_run_script, xml_report, user_group_configs = configure(project_name, cmd_opts, config_file=saved_config)
     print '\n\nanalyzing results...\n'
     results.output_results(output_dir, 'results.csv', run_time, rampup, results_ts_interval, user_group_configs, xml_report)
@@ -183,8 +186,8 @@ def rerun_results(project_name, cmd_opts, results_dir):
 def configure(project_name, cmd_opts, config_file=None):
     user_group_configs = []
     config = ConfigParser.ConfigParser()
-    if config_file is None:
-        config_file = '%s/%s/config.cfg' % (cmd_opts.projects_dir, project_name)
+    config_file = os.path.join(cmd_opts.projects_dir,
+                                    project_name, 'config.cfg')
     config.read(config_file)
     for section in config.sections():
         if section == 'global':

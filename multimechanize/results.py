@@ -6,7 +6,7 @@
 #  This file is part of Multi-Mechanize | Performance Test Framework
 #
 
-
+import os
 import time
 from collections import defaultdict
 import graph
@@ -16,7 +16,7 @@ import reportwriterxml
 
 
 def output_results(results_dir, results_file, run_time, rampup, ts_interval, user_group_configs=None, xml_reports=False):
-    results = Results(results_dir + results_file, run_time)
+    results = Results(os.path.join(results_dir, results_file), run_time)
 
     report = reportwriter.Report(results_dir)
 
