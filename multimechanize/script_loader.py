@@ -52,7 +52,8 @@ class ScriptValidator(object):
         """
         problem = cls.check_module_invalid(module)
         if problem:
-            raise InvalidScriptError, problem
+            sys.stderr.write("Cannot import: {0}: {1}\n"
+                               .format(module, problem))
 
 class ScriptLoader(object):
     """Utility class to load scripts as python modules."""
