@@ -159,17 +159,19 @@ def output_results(results_dir, results_file, run_time, rampup, ts_interval, use
 
         report.write_line('<h3>Timer Summary (secs)</h3>')
 
+        custom_len = len(custom_timer_vals)
+
         report.write_line('<table>')
         report.write_line('<tr><th>count</th><th>min</th><th>avg</th><th>80pct</th><th>90pct</th><th>95pct</th><th>max</th><th>stdev</th></tr>')
         report.write_line('<tr><td>%i</td><td>%.3f</td><td>%.3f</td><td>%.3f</td><td>%.3f</td><td>%.3f</td><td>%.3f</td><td>%.3f</td></tr>'  % (
             len(custom_timer_vals),
-            min(custom_timer_vals),
-            average(custom_timer_vals),
-            percentile(custom_timer_vals, 80),
-            percentile(custom_timer_vals, 90),
-            percentile(custom_timer_vals, 95),
-            max(custom_timer_vals),
-            standard_dev(custom_timer_vals)
+            min(custom_timer_vals) if custom_len else 0,
+            average(custom_timer_vals) if custom_len else 0,
+            percentile(custom_timer_vals, 80) if custom_len else 0,
+            percentile(custom_timer_vals, 90) if custom_len else 0,
+            percentile(custom_timer_vals, 95) if custom_len else 0,
+            max(custom_timer_vals) if custom_len else 0,
+            standard_dev(custom_timer_vals) if custom_len else 0
         ))
         report.write_line('</table>')
 
