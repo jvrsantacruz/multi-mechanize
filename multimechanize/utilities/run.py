@@ -124,10 +124,8 @@ def run_test(project_name, cmd_opts, remote_starter=None):
 
         while [user_group for user_group in user_groups if user_group.is_alive()] != []:
             if progress_bar:
-                if sys.platform.startswith('win'):
-                    print 'waiting for all requests to finish...\r',
-                else:
-                    print 'waiting for all requests to finish...\r'
+	        print 'waiting for all requests to finish...\r',
+                if not sys.platform.startswith('win'):
                     sys.stdout.write(chr(27) + '[A' )
             time.sleep(.5)
 
