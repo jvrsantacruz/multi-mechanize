@@ -251,6 +251,7 @@ class Results(object):
         self.uniq_user_group_names = set()
 
         self.resp_stats_list = self.__parse_file()
+        assert  self.resp_stats_list, "no transactions completed in the specified time" 
 
         self.epoch_start = self.resp_stats_list[0].epoch_secs
         self.epoch_finish = self.resp_stats_list[-1].epoch_secs
