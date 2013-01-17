@@ -1,0 +1,3 @@
+pip installs these scripts without including
+if __name__=="__main__":
+which is bad. Copy these files to PYTHON_DIR\Scripts\
